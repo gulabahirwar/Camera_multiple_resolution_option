@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
     private void showDialogBox() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Camera permission required!");
-        builder.setCancelable(true);
+        builder.setCancelable(false);
 
         builder.setPositiveButton(
                 "Grant",
