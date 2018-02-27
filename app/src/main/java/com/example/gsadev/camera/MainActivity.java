@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             if (camera==null){
                 initCameraSurfaceView();
 
-                if (isPermissionGranted() ){
+                if (isPermissionGranted() && camera.getParameters()!=null){
                     Camera.Parameters parameters=camera.getParameters();
                     parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
                     parameters.setPreviewSize(size.width,size.height);
