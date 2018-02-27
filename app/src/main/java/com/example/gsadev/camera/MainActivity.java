@@ -83,14 +83,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
             if (camera==null){
-
                 initCameraSurfaceView();
 
-                Camera.Parameters parameters=camera.getParameters();
-                parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
-                parameters.setPreviewSize(size.width,size.height);
-                camera.setParameters(parameters);
-                camera.startPreview();
+                if (isPermissionGranted() ){
+                    Camera.Parameters parameters=camera.getParameters();
+                    parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+                    parameters.setPreviewSize(size.width,size.height);
+                    camera.setParameters(parameters);
+                    camera.startPreview();
+                }
             }
     }
 
