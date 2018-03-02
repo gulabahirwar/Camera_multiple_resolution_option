@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Camera.iml" filepath="$PROJECT_DIR$/Camera.iml" />
+      <module fileurl="file://E:\Camera_multiple_resolution_option\Camera.iml" filepath="E:\Camera_multiple_resolution_option\Camera.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Camera_multiple_resolution_option.iml" filepath="$PROJECT_DIR$/Camera_multiple_resolution_option.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\Camera_multiple_resolution_option\app\app.iml" filepath="E:\Camera_multiple_resolution_option\app\app.iml" />
     </modules>
   </component>
 </project>

@@ -29,7 +29,7 @@ class ImageSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
             camera.setPreviewDisplay(holder);
             camera.setDisplayOrientation(90);
             camera.startPreview();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -41,7 +41,6 @@ class ImageSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        this.camera.stopPreview();
-        this.camera.release();
+
     }
 }
