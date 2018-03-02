@@ -57,11 +57,15 @@ public class MainActivity extends AppCompatActivity {
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!isPermissionGranted(checkCallingOrSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) ){
+                    showDialogBox();
+                    return;
+                }
                 camera.takePicture(null, null, pictureCallback);
             }
         });
 
-        if (isPermissionGranted())
+        if (isPermissionGranted(checkCallingOrSelfPermission(Manifest.permission.CAMERA)))
             setResolution(spinner);
     }
 
@@ -72,8 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private boolean isPermissionGranted() {
-        int result = checkCallingOrSelfPermission(Manifest.permission.CAMERA);
+    private boolean isPermissionGranted(int result) {
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
@@ -93,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             if (camera==null){
                 initCameraSurfaceView();
 
-                if (isPermissionGranted() && camera.getParameters()!=null){
+                if (isPermissionGranted(checkCallingOrSelfPermission(Manifest.permission.CAMERA)) && size!=null){
                     Camera.Parameters parameters=camera.getParameters();
                     parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
                     parameters.setPictureSize(size.width,size.height);
@@ -190,23 +193,16 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == MY_CAMERA_REQUEST_CODE ) {
             boolean cameraPermission=grantResults[0] == PackageManager.PERMISSION_GRANTED;
-            boolean writeStoragePermission=grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            boolean writeStoragePermission=grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
-            if(!cameraPermission){
-                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
-                showDialogBox();
-            }
-
-            if(!writeStoragePermission){
-                Toast.makeText(this, "storage permission denied", Toast.LENGTH_LONG).show();
-                showDialogBox();
-            }
 
             if (cameraPermission && writeStoragePermission) {
 
                 initCameraSurfaceView();
                 setResolution(spinner);
 
+            }else{
+                showDialogBox();
             }
 
         }
@@ -215,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showDialogBox() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Camera permission required!");
+        builder.setMessage("Permission required!");
         builder.setCancelable(false);
 
         builder.setPositiveButton(
